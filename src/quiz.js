@@ -42,4 +42,38 @@ constructor(questions, timeLimit, timeRemaining){
             return true
         }
     }
+    //6. filterQuestionByDifficulty()
+    filterQuestionsByDifficulty(difficultyNumber){
+        
+        if (difficultyNumber !== 1 && difficultyNumber !== 2 && difficultyNumber !== 3){
+            return
+        }
+
+         let busqueda = this.questions.filter((e)=>{
+
+            return e.difficulty === difficultyNumber
+        })
+       
+
+        this.questions = busqueda
+    }
+
+    //7. averageDifficulty()
+    averageDifficulty(){
+
+        
+        let suma= this.questions.reduce((acc, e)=>{
+
+            return acc += e.difficulty
+
+        }
+        
+         ,0)
+
+         return suma / this.questions.length
+    }
+
+
 }
+    
+
