@@ -28,9 +28,9 @@ constructor(questions, timeLimit, timeRemaining){
     // 5. checkAnswer(answer)
     checkAnswer(answer){
         //saca el array con todas las preguntas //this.questions
-        //elige el de ahora //[this.currentQuestionIndex]
+        //elige el elemento de ahora //[this.currentQuestionIndex]
         //y elige la respuesta // .answer
-        if(answer === this.questions[this.currentQuestionIndex].answer){
+        if(answer == this.questions[this.currentQuestionIndex].answer){
             this.correctAnswers++
         }
     }
