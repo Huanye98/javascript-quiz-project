@@ -26,30 +26,25 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Array with the quiz questions
   const questions = [
-    new Question("¿Quién es el alter ego de Ironman en los cómics de Marvel?", ["Bruce Wayne", "Steve Rogers", "Tony Stark", "Peter Parker"], "Tony Stark", 1),
     new Question("¿Cómo se llama el perro de Mickey Mouse?", ["Donald", "Goofy", "Pluto", "Daisy"], "Pluto", 1),
     new Question("¿Quién ganó el mundial del lol en 2011?", ["Fnatic", "T1", "Tsm", "Bill Gates"], "Fnatic", 2),
     new Question("¿Quién es el hermano adoptivo de Thor en Marvel?", ["Loki", "Odin", "Heimdall", "Thanos"], "Loki", 1),
-    new Question("¿Cuál es el nombre del videojuego donde los jugadores construyen y exploran mundos hechos de bloques?", ["Minecraft", "Fortnite", "Roblox", "Among Us"], "Minecraft", 1),
-    /*new Question("¿Qué superhéroe de Marvel usa un escudo con una estrella?", ["Iron Man", "Hulk", "Capitán América", "Spider-Man"], "Capitán América", 1),
+    new Question("¿Qué superhéroe de Marvel usa un escudo con una estrella?", ["Iron Man", "Hulk", "Capitán América", "Spider-Man"], "Capitán América", 1),
     new Question("¿En qué videojuego luchas contra criaturas conocidas como Creepers?", ["Minecraft", "Terraria", "Call of Duty", "Zelda"], "Minecraft", 2),
     new Question("¿Qué fruta se dice que mantiene alejado al doctor si comes una cada día?", ["Naranja", "Plátano", "Manzana", "Pera"], "Manzana", 1),
     new Question("¿Cuál es el nombre del villano que aparece en la película 'Black Panther'?", ["Erik Killmonger", "Thanos", "Loki", "Ultron"], "Erik Killmonger", 2),
-    new Question("¿Cuál es el alimento principal de los pandas?", ["Bambú", "Manzanas", "Miel", "Carne"], "Bambú", 1),
-    new Question("¿Qué videojuego tiene personajes como Mario, Luigi y Bowser?", ["Sonic", "The Legend of Zelda", "Super Mario", "Metroid"], "Super Mario", 1),
-    new Question("¿Cuál es el superhéroe arácnido de Marvel?", ["Batman", "Superman", "Spider-Man", "Flash"], "Spider-Man", 1),
     new Question("¿Cuál es el ingrediente principal del hummus?", ["Garbanzos", "Lentejas", "Frijoles", "Arroz"], "Garbanzos", 2),
-    new Question("¿Cuál es el verdadero nombre de Black Widow en Marvel?", ["Natasha Romanoff", "Wanda Maximoff", "Carol Danvers", "Peggy Carter"], "Natasha Romanoff", 2),
     new Question("¿Qué videojuego popular incluye el personaje llamado Master Chief?", ["Halo", "Gears of War", "Fortnite", "Overwatch"], "Halo", 2),
-    new Question("¿Cuál es el superhéroe de Marvel que tiene una armadura tecnológica y se llama Tony Stark?", ["Doctor Strange", "Iron Man", "Thor", "Hawkeye"], "Iron Man", 1),
-    new Question("¿En qué videojuego puedes encontrar criaturas llamadas Pokémon?", ["Final Fantasy", "Pokémon", "World of Warcraft", "League of Legends"], "Pokémon", 1),
-    new Question("¿Cuál es el nombre del superhéroe de Marvel conocido por su sentido arácnido?", ["Hulk", "Spider-Man", "Ant-Man", "Doctor Strange"], "Spider-Man", 1),
-    new Question("¿Qué alimento es conocido por ser una fuente rica de vitamina C?", ["Pan", "Naranja", "Arroz", "Carne"], "Naranja", 1),
     new Question("¿En qué videojuego puedes encontrar una isla llamada Hyrule?", ["Minecraft", "Super Mario", "The Legend of Zelda", "Fortnite"], "The Legend of Zelda", 2),
-*/
+    new Question("Qué hace el CSS Flex-Direction: Reverse", ["Hundirte la vida", "El breaking Dance", "Invierte la direccion de eje", "No existe, es inventado"], "Invierte la direccion de eje", 1),
+    new Question("Que es lo mas dificil que has estudiado hasta ahora", ["JS DOM", "HTML", "CSS3 Obviamente", "Divisiones en caja"], "CSS3", 1),
+    new Question("¿Quién gana en una pelea entre Zeus y 1M de Leones? ", ["Zeus", "1M de Leones", "CSS3", "Peppa Pig en su prime time"], "CSS3", 1),
+    new Question("SI o NO", ["SI", "NO", "CSS3", "NaN"], "CSS3", 1),
+    new Question("¿Cuál es el país más pequeño del mundo?", ["Mónaco", "Malta", "Ciudad del Vaticano", "San Marino"], "Ciudad del Vaticano", 1),
+
     // Add more questions here
   ];
-  const quizDuration = 30; // 120 seconds (2 minutes)
+  const quizDuration = 120; // 120 seconds (2 minutes)
 
   /************  QUIZ INSTANCE  ************/
   
@@ -233,7 +228,19 @@ document.addEventListener("DOMContentLoaded", () => {
     quiz.correctAnswers = 0
     quiz.shuffleQuestions()
     showQuestion()
-   
+   quiz.timeRemaining = 120;
+   let timer = setInterval(() => {
+    quiz.timeRemaining--
+    const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+    const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+    const timeRemainingContainer = document.getElementById("timeRemaining");
+    timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+
+    if (quiz.timeRemaining === 0){
+      clearInterval(timer)
+      showResults()
+    }
+}, 1000);
   }
   const pepe = document.querySelector("#endView button")
   pepe.addEventListener("click",()=>{
