@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Question("¿Quién ganó el mundial del lol en 2011?", ["Fnatic", "T1", "Tsm", "Bill Gates"], "Fnatic", 2),
     new Question("¿Quién es el hermano adoptivo de Thor en Marvel?", ["Loki", "Odin", "Heimdall", "Thanos"], "Loki", 1),
     new Question("¿Cuál es el nombre del videojuego donde los jugadores construyen y exploran mundos hechos de bloques?", ["Minecraft", "Fortnite", "Roblox", "Among Us"], "Minecraft", 1),
-    new Question("¿Qué superhéroe de Marvel usa un escudo con una estrella?", ["Iron Man", "Hulk", "Capitán América", "Spider-Man"], "Capitán América", 1),
+    /*new Question("¿Qué superhéroe de Marvel usa un escudo con una estrella?", ["Iron Man", "Hulk", "Capitán América", "Spider-Man"], "Capitán América", 1),
     new Question("¿En qué videojuego luchas contra criaturas conocidas como Creepers?", ["Minecraft", "Terraria", "Call of Duty", "Zelda"], "Minecraft", 2),
     new Question("¿Qué fruta se dice que mantiene alejado al doctor si comes una cada día?", ["Naranja", "Plátano", "Manzana", "Pera"], "Manzana", 1),
     new Question("¿Cuál es el nombre del villano que aparece en la película 'Black Panther'?", ["Erik Killmonger", "Thanos", "Loki", "Ultron"], "Erik Killmonger", 2),
@@ -46,11 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
     new Question("¿Cuál es el nombre del superhéroe de Marvel conocido por su sentido arácnido?", ["Hulk", "Spider-Man", "Ant-Man", "Doctor Strange"], "Spider-Man", 1),
     new Question("¿Qué alimento es conocido por ser una fuente rica de vitamina C?", ["Pan", "Naranja", "Arroz", "Carne"], "Naranja", 1),
     new Question("¿En qué videojuego puedes encontrar una isla llamada Hyrule?", ["Minecraft", "Super Mario", "The Legend of Zelda", "Fortnite"], "The Legend of Zelda", 2),
-
+*/
     // Add more questions here
   ];
-  const quizDuration = 120; // 120 seconds (2 minutes)
-
+  const quizDuration = 30; // 120 seconds (2 minutes)
 
   /************  QUIZ INSTANCE  ************/
   
@@ -75,8 +74,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /************  TIMER  ************/
+  let timerNode = document.querySelector("#timeRemaining")
+  
+  let timer = setInterval(() => {
+      quiz.timeRemaining--
+      const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+      const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+      const timeRemainingContainer = document.getElementById("timeRemaining");
+      timeRemainingContainer.innerText = `${minutes}:${seconds}`;
 
-  let timer;
+      if (quiz.timeRemaining === 0){
+        clearInterval(timer)
+        showResults()
+      }
+  }, 1000);
 
 
   /************  EVENT LISTENERS  ************/
@@ -97,7 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function showQuestion() {
     // If the quiz has ended, show the results
     if (quiz.hasEnded()) {
+      clearInterval(timer)
       showResults();
+
       return;
     }
 
@@ -197,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   function showResults() {
-
+    //let mensaje = document.querySelector("#result")
     // YOUR CODE HERE:
     //
     // 1. Hide the quiz view (div#quizView)
@@ -220,7 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
     quiz.correctAnswers = 0
     quiz.shuffleQuestions()
     showQuestion()
-
+   
   }
   const pepe = document.querySelector("#endView button")
   pepe.addEventListener("click",()=>{
